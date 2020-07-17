@@ -9,7 +9,7 @@
   "hooks": {
     "prebuild": {
       "commands": [
-        "DOCKER_HOST=/var/run/docker.sock ./gradlew --console=plain bootBuildImage --imageName=$IMAGE_URL"
+        "DOCKER_HOST=/var/run/docker.sock ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=$IMAGE_URL"
       ]
     }
   }
