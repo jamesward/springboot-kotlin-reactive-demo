@@ -9,7 +9,7 @@
   "hooks": {
     "prebuild": {
       "commands": [
-        "./gradlew --console=plain bootBuildImage --imageName=$IMAGE_URL"
+        "unset DOCKER_HOST; ./gradlew --console=plain bootBuildImage --imageName=$IMAGE_URL"
       ]
     }
   }
