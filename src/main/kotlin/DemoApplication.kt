@@ -5,8 +5,7 @@ import org.springframework.boot.runApplication
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.reactive.function.client.WebClient
-import org.springframework.web.reactive.function.client.awaitBodyOrNull
-import org.springframework.web.reactive.function.client.awaitExchange
+import org.springframework.web.reactive.function.client.awaitBody
 
 @SpringBootApplication
 @RestController
@@ -15,9 +14,9 @@ class DemoApplication {
 
 	@GetMapping("/")
 	suspend fun index() = run {
-		val releases = webClient.get().uri("https://api.github.com/repos/jetbrains/kotlin/tags").awaitExchange().awaitBodyOrNull<List<Release>>()
+		val releases = webClient.get().uri("https://api.github.com/repos/jetbrains/kotlin/tags").retrieve().awaitBody<List<Release>>()
 
-		releases?.filterNot{it.name.contains("-")}?.firstOrNull()?.name ?: "not found"
+		releases.filterNot{it.name.contains("-")}.firstOrNull()?.name ?: "not found"
 	}
 
 }
