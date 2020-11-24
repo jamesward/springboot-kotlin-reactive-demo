@@ -9,7 +9,7 @@
   "hooks": {
     "prebuild": {
       "commands": [
-        "./gradlew bootBuildImage --imageName=$IMAGE_URL"
+        "./gradlew --console=plain bootBuildImage --imageName=$IMAGE_URL"
       ]
     }
   }
