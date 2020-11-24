@@ -1,5 +1,16 @@
 {
   "options": {
-    "cpu": "2"
+    "cpu": "2",
+    "memory": "1Gi"
+  },
+  "build": {
+    "skip": true
+  },
+  "hooks": {
+    "prebuild": {
+      "commands": [
+        "./gradlew bootBuildImage --imageName=$IMAGE_URL"
+      ]
+    }
   }
 }
