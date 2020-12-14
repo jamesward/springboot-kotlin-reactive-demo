@@ -7,7 +7,10 @@ plugins {
 	kotlin("plugin.spring") version "1.4.20"
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+}
 
 repositories {
 	mavenLocal()
@@ -26,6 +29,6 @@ dependencies {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "1.8"
+		jvmTarget = JavaVersion.VERSION_11.toString()
 	}
 }
