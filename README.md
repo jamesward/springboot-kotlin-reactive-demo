@@ -4,7 +4,8 @@ Spring Boot Kotlin Reactive Demo
 [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
 
 Run Locally (dev mode):
-1. In another terminal: `./gradlew -t bootRun`
+1. In a terminal: `./gradlew -t classes`
+1. In another terminal: `./gradlew bootRun`
 1. Open: [localhost:8080](http://localhost:8080)
 
 Create Docker Image for GCP:
