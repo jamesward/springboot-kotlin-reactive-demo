@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.10.RELEASE"
 	kotlin("jvm") version "1.4.20"
 	kotlin("plugin.spring") version "1.4.20"
+	kotlin("plugin.serialization") version "1.4.20"
 }
 
 java {
@@ -18,12 +19,13 @@ repositories {
 }
 
 dependencies {
-	implementation(kotlin("reflect"))
 	implementation(kotlin("stdlib-jdk8"))
-	implementation("org.springframework.boot:spring-boot-starter-webflux")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.springframework.boot:spring-boot-starter-webflux") {
+		exclude("org.springframework.boot", "spring-boot-starter-json")
+	}
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
 	implementation("org.springframework.fu:spring-fu-kofu:0.4.3")
 	implementation("org.springframework.experimental:spring-graalvm-native:0.8.4")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
