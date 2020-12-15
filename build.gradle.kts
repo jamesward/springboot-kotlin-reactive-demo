@@ -14,6 +14,7 @@ java {
 
 repositories {
 	mavenCentral()
+	maven(uri("https://repo.spring.io/milestone"))
 }
 
 dependencies {
@@ -23,6 +24,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+	implementation("org.springframework.experimental:spring-graalvm-native:0.8.4")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 
@@ -30,5 +32,22 @@ tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = JavaVersion.VERSION_1_8.toString()
+	}
+}
+
+tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootBuildImage> {
+	if (project.hasProperty("native")) {
+		val args = setOf(
+			"-Dspring.spel.ignore=true",
+			"-Dspring.native.remove-yaml-support=true",
+			"--enable-https",
+			"--verbose",
+			"-H:+ReportExceptionStackTraces"
+		)
+		builder = "paketobuildpacks/builder:tiny"
+		environment = mapOf(
+			"BP_BOOT_NATIVE_IMAGE" to "1",
+			"BP_BOOT_NATIVE_IMAGE_BUILD_ARGUMENTS" to args.joinToString(" ")
+		)
 	}
 }
