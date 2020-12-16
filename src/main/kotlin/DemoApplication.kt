@@ -19,7 +19,8 @@ class DemoApplication {
 
 	@GetMapping("/")
 	suspend fun index() = run {
-		val releases = webClient.get().uri("https://api.github.com/repos/jetbrains/kotlin/tags").retrieve().awaitBody<List<Release>>()
+		val url = "https://api.github.com/repos/jetbrains/kotlin/tags"
+		val releases = webClient.get().uri(url).retrieve().awaitBody<List<Release>>()
 
 		releases.filterNot{it.name.contains("-")}.firstOrNull()?.name ?: "not found"
 	}
