@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Kotlin Bars</title>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css">
+
+    <style>
+        body {
+            margin-top: 75px;
+            font-family: monospace;
+        }
+    </style>
+
+    <script>
+        function refreshBars() {
+            const barsList = document.getElementById("bars");
+            barsList.innerHTML = "";
+
+            fetch("/bars").then( response => {
+                response.json().then( bars => {
+                    bars.forEach( bar => {
+                        const li = document.createElement("li")
+                        li.innerText = bar.name;
+                        barsList.appendChild(li);
+                    });
+                });
+            });
+        }
+
+        window.addEventListener("load", () => {
+            const form = document.getElementById("form");
+            form.addEventListener("submit", event => {
+                event.preventDefault();
+                const name = document.getElementById("name");
+                const req = {
+                    method: "post",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({"name": name.value})
+                };
+                fetch("/bars", req).then( () => {
+                    name.value = "";
+                    refreshBars();
+                });
+            });
+
+            refreshBars();
+        });
+    </script>
+</head>
+<body>
+<nav class="navbar fixed-top navbar-light bg-light"><a class="navbar-brand" href="/">Bars</a></nav>
+<div class="container-fluid">
+    <ul id="bars"></ul>
+    <form action="/bars" id="form">
+        <input id="name" required="required" type="text">
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>
