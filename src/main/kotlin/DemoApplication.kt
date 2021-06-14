@@ -1,8 +1,5 @@
 package demo
 
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,19 +16,7 @@ class DemoApplication {
     @GetMapping("/")
     suspend fun index() = run {
         val numUrl = "https://random-num.jamesward.com"
-        val num = webClient.get().uri(numUrl).retrieve().awaitBody<String>().toInt()
-
-        val wordUrl = "https://random-word.jamesward.com"
-
-        val reqs = coroutineScope {
-            List(num) {
-                async {
-                    webClient.get().uri(wordUrl).retrieve().awaitBody<String>()
-                }
-            }
-        }
-
-        reqs.awaitAll().joinToString(" ")
+        webClient.get().uri(numUrl).retrieve().awaitBody<String>().toInt()
     }
 }
 
