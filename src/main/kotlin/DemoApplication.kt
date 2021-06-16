@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController
 class DemoApplication {
     @GetMapping("/")
     fun index() = run {
-        Thread.sleep(5000)
         "hello, world"
     }
 }
