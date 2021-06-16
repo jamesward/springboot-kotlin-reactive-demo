@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    application
     id("org.springframework.boot") version "2.5.1"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.5.10"
@@ -34,6 +35,10 @@ dependencies {
     testRuntimeOnly("org.postgresql:postgresql")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+}
+
+application {
+    mainClass.set("demo.DemoApplicationKt")
 }
 
 tasks.withType<KotlinCompile> {
