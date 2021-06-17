@@ -6,10 +6,7 @@ steps:
       - -c
       - |
         ln -s /busybox/env /usr/bin/env
-        /workspace/gradlew --console=plain --no-daemon --gradle-user-home=/home/.gradle bootBuildImage --imageName=gcr.io/$PROJECT_ID/$REPO_NAME
-    volumes:
-      - name: 'gradle'
-        path: '/home/.gradle'
+        /workspace/gradlew --console=plain --no-daemon bootBuildImage --imageName=gcr.io/$PROJECT_ID/$REPO_NAME
 
   - id: 'push'
     name: 'gcr.io/cloud-builders/docker'
