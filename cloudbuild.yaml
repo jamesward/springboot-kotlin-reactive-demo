@@ -6,21 +6,21 @@ steps:
       - -c
       - |
         ln -s /busybox/env /usr/bin/env
-        /workspace/gradlew --console=plain --no-daemon bootBuildImage --imageName=gcr.io/$PROJECT_ID/a1
+        /workspace/gradlew --console=plain --no-daemon bootBuildImage --imageName=gcr.io/$PROJECT_ID/$REPO_NAME
 
   - id: 'push'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/a1']
+    args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME']
 
   - id: 'deploy'
     name: ghcr.io/jamesward/easycloudrun
     entrypoint: vpcsql
     env:
       - 'PROJECT_ID=$PROJECT_ID'
-      - 'IMAGE_NAME=a1'
+      - 'IMAGE_NAME=$REPO_NAME'
       - 'REGION=us-central1'
       - 'DB_VERSION=POSTGRES_13'
-      - 'DB_TIER=db-f1-micro'
+      - 'DB_TIER=db-g1-small'
       - 'DB_INIT_ARGS=init'
 
 timeout: 30m
