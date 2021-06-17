@@ -15,6 +15,8 @@ export PROJECT_ID=YOUR_GCP_PROJECT_ID
 docker push gcr.io/$PROJECT_ID/springboot-kotlin-reactive-demo
 ```
 
+TODO: db setup stuff
+
 Run Docker Image Locally:
 ```
 docker run -p8080:8080 gcr.io/$PROJECT_ID/springboot-kotlin-reactive-demo
@@ -32,3 +34,4 @@ gcloud run deploy \
   --region=us-central1 \
   springboot-kotlin-reactive-demo
 ```
+
