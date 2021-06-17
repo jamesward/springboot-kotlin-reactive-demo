@@ -22,3 +22,5 @@ steps:
       - 'DB_VERSION=POSTGRES_13'
       - 'DB_TIER=db-f1-micro'
       - 'DB_INIT_ARGS=init'
+
+timeout: 20m
