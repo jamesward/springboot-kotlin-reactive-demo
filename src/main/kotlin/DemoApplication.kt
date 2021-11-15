@@ -1,21 +1,20 @@
 package demo
 
-import io.netty.resolver.DefaultAddressResolverGroup
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.nativex.hint.AccessBits
+import org.springframework.nativex.hint.TypeHint
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.awaitBody
-import org.springframework.http.client.reactive.ReactorClientHttpConnector
-import reactor.netty.http.client.HttpClient
 
 
 @SpringBootApplication
 @RestController
+@TypeHint(types = [Release::class], access = AccessBits.FULL_REFLECTION)
 class DemoApplication {
-	val httpClient = HttpClient.create().resolver(DefaultAddressResolverGroup.INSTANCE)
-	val webClient = WebClient.builder().clientConnector(ReactorClientHttpConnector(httpClient)).build()
+	val webClient = WebClient.create()
 
 	@GetMapping("/")
 	suspend fun index() = run {
@@ -25,6 +24,7 @@ class DemoApplication {
 	}
 
 }
+
 
 data class Release(val name: String)
 

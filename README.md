@@ -3,8 +3,7 @@ Spring Boot Kotlin Reactive Demo
 
 [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
 
-Run Locally (dev mode):
-1. In a terminal: `./gradlew -t classes`
+Run Locally:
 1. In another terminal: `./gradlew bootRun`
 1. Open: [localhost:8080](http://localhost:8080)
 
@@ -26,7 +25,7 @@ Or create a GraalVM Native Image Docker Image:
 
 Run Docker Image Locally:
 ```
-docker run -p8080:8080 gcr.io/$PROJECT_ID/springboot-kotlin-reactive-demo
+docker run -it -p8080:8080 gcr.io/$PROJECT_ID/springboot-kotlin-reactive-demo
 ```
 
 Run on Google Cloud Run:
